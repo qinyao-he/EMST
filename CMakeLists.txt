@@ -10,7 +10,6 @@ find_package(CGAL QUIET COMPONENTS)
 include(${CGAL_USE_FILE})
 find_package(Boost REQUIRED)
 find_package(OpenCV REQUIRED)
-message(${OpenCV_CONFIG_PATH}/include)
 set(OpenCV_INCLUDE_DIRS "${OpenCV_CONFIG_PATH}/include" "${OpenCV_CONFIG_PATH}/include/opencv")
 include_directories(${OpenCV_INCLUDE_DIRS})
 
