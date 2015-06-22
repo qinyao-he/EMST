@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "emst_abstract.h
+#include "emst_abstract.h"
 
 
 class EMSTPrim : public EMSTAbstract {

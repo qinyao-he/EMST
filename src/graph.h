@@ -5,6 +5,7 @@
 #ifndef EMST_GRAPH_H
 #define EMST_GRAPH_H
 
+#include <cstddef>
 #include <vector>
 #include <list>
 
@@ -12,24 +13,26 @@
 class Graph {
 public:
     struct Edge {
+        Edge(int u = 0, int v = 0, double w = 0) : u(u), v(v), w(w) {}
         int u, v;
         double w;
     };
 
-    Graph(int n = 0);
+    Graph(size_t n = 0);
 
     void add_edge(int u, int v, double w);
 
     typedef std::list<Edge>::iterator edge_iter;
-    typedef std::list<Edge> edge_list;
-    edge_iter edge_iter_begin(int u) const;
-    edge_iter edge_iter_end(int u) const;
-    const edge_list& edge_list(int u) const;
+    typedef std::list<Edge>::const_iterator const_edge_iter;
+    const_edge_iter edge_iter_begin(int u) const;
+    const_edge_iter edge_iter_end(int u) const;
+    std::list<Edge> edge_list(int u) const;
 
+    size_t get_n_vertex() const { return n_vertex; }
 
 private:
-    int n_vertex;
-    int n_edge;
+    size_t n_vertex;
+    size_t n_edge;
     std::vector<std::list<Edge>> adjlist;
 };
 

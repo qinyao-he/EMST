@@ -4,8 +4,10 @@
 
 #include "graph.h"
 
+using std::list;
 
-Graph::Graph(int n = 0) {
+
+Graph::Graph(size_t n) {
     n_vertex = n;
     n_edge = 0;
     adjlist.resize(n_vertex);
@@ -18,16 +20,15 @@ void Graph::add_edge(int u, int v, double w) {
 }
 
 
-Graph::edge_iter Graph::edge_iter_begin(int u) const {
+Graph::const_edge_iter Graph::edge_iter_begin(int u) const {
     return adjlist[u].begin();
 }
 
 
-Graph::edge_iter Graph::edge_iter_end(int u) const {
+Graph::const_edge_iter Graph::edge_iter_end(int u) const {
     return adjlist[u].end();
 }
 
-
-const Graph::edge_list& Graph::edge_list(int u) const {
+list<Graph::Edge> Graph::edge_list(int u) const {
     return adjlist[u];
 }
