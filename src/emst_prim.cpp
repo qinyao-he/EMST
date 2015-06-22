@@ -9,33 +9,22 @@
 #include <limits>
 
 using std::vector;
+using std::pair;
 
 
-vector<EMSTPrim::Edge> EMSTPrim::solve(const Graph &graph) const {
-    size_t n = graph.get_n_vertex();
-	vector<bool> in_tree(n, false);
-	vector<double> dist(n, (std::numeric_limits<double>::max)());
-	vector<Edge> pre(n);
-    vector<Edge> edges;
-	int t = 0;
-	dist[t] = 0;
-	for(size_t k = 1; k < n; k++) {
-        in_tree[t] = true;
-        for (const auto& edge : graph.edge_list(t)) {
-            if(dist[edge.v] > edge.w && !in_tree[edge.v]) {
-                dist[edge.v] = edge.w;
-                pre[edge.v] = edge;
-            }
+vector<pair<Point, Point>> EMSTPrim::solve(const vector<Point>& points) const {
+    size_t n = points.size();
+    Graph graph(n);
+    for (size_t i = 0; i < n - 1; i++) {
+        for (size_t j = i + 1; j < n; j++) {
+            graph.add_edge(i, j, points[i].distance(points[j]));
+            graph.add_edge(j, i, points[i].distance(points[j]));
         }
-		double min = (std::numeric_limits<double>::max)();
-		int minv = 0;
-		for(size_t i = 0; i < n; i++)
-			if(min > dist[i] && !in_tree[i]) {
-				min = dist[i];
-				minv = i;
-			}
-        edges.push_back(pre[minv]);
-		t = minv;
-	}
-    return edges;
+    }
+    auto edges = graph.mst();
+    vector<pair<Point, Point>> ret;
+    for (const auto& edge : edges) {
+        ret.push_back(std::make_pair(points[edge.u], points[edge.v]));
+    }
+    return ret;
 }

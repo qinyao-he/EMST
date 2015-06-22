@@ -15,7 +15,7 @@ private:
     typedef Graph::Edge Edge;
 
 public:
-    std::vector<Edge> solve(const Graph& graph) const;
+    std::vector<std::pair<Point, Point>> solve(const std::vector<Point>& points) const;
 };
 
 

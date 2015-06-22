@@ -22,13 +22,11 @@ public:
 
     void add_edge(int u, int v, double w);
 
-    typedef std::list<Edge>::iterator edge_iter;
-    typedef std::list<Edge>::const_iterator const_edge_iter;
-    const_edge_iter edge_iter_begin(int u) const;
-    const_edge_iter edge_iter_end(int u) const;
     std::list<Edge> edge_list(int u) const;
 
     size_t get_n_vertex() const { return n_vertex; }
+
+    std::vector<Edge> mst() const;
 
 private:
     size_t n_vertex;

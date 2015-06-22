@@ -6,8 +6,10 @@
 #define EMST_EMST_ABSTRACT_H
 
 #include <vector>
+#include <utility>
 
 #include "graph.h"
+#include "point.h"
 
 
 class EMSTAbstract {
@@ -15,7 +17,7 @@ private:
     typedef Graph::Edge Edge;
 
 public:
-    virtual std::vector<Edge> solve(const Graph& graph) const = 0;
+    virtual std::vector<std::pair<Point, Point>> solve(const std::vector<Point>& points) const = 0;
 };
 
 

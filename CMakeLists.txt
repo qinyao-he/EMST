@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 project(EMST)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -std=c++11 -g")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -std=c++11 -O2")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
 
 set(CMAKE_BUILD_TYPE "Release")
 
@@ -14,5 +13,6 @@ set(OpenCV_INCLUDE_DIRS "${OpenCV_CONFIG_PATH}/include" "${OpenCV_CONFIG_PATH}/i
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 aux_source_directory(src SOURCE_FILES)
+aux_source_directory(test TEST_SOURCE_FILES)
 add_executable(EMST ${SOURCE_FILES})
 target_link_libraries(EMST ${OpenCV_LIBS})
