@@ -29,3 +29,12 @@ bool Point::operator < (const Point &op) const {
         }
     }
 }
+
+
+bool Point::operator == (const Point &op) const {
+    if (x == op.x && y == op.y) {
+        return true;
+    } else {
+        return false;
+    }
+}

@@ -14,6 +14,8 @@ public:
 
     bool operator < (const Point& op) const;
 
+    bool operator == (const Point& op) const;
+
     double distance(const Point& op) const;
 };
 

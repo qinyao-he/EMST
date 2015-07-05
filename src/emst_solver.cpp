@@ -9,13 +9,11 @@ using std::vector;
 
 
 EMSTSolver::EMSTSolver(shared_ptr<EMSTAbstract> emst)
-        : emst(emst)
-{
+        : emst(emst) {
 
 }
 
 
-vector<EMSTSolver::edge> EMSTSolver::solve(const std::vector<Point>& points)
-{
-        return emst->solve(points);
+vector<EMSTSolver::edge> EMSTSolver::solve(const std::vector<Point> &points) {
+    return emst->solve(points);
 }
