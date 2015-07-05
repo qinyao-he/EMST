@@ -1,4 +1,5 @@
 #include <ctime>
+#include <cmath>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -91,6 +92,20 @@ int main(int argc, char** argv)
                 cout << "testcase " + std::to_string(k + 1) << " success" << endl;
             } else {
                 cout << "testcase " + std::to_string(k + 1) << " failed" << endl;
+            }
+
+            double dist1 = 0, dist2 = 0;
+            for (const auto& e : result1) {
+                dist1 += e.first.distance(e.second);
+            }
+            for (const auto& e : result2) {
+                dist2 += e.first.distance(e.second);
+            }
+
+            if (abs(dist1 - dist2) < 1e-6) {
+                cout << "testcase " + std::to_string(k + 1) << " cost equal" << endl;
+            } else {
+                cout << "testcase " + std::to_string(k + 1) << " cost unequal" << endl;
             }
 
             inf.close();
