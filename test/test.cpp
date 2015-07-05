@@ -5,6 +5,7 @@
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <set>
 #include "../src/point.h"
 #include "../src/emst_delaunay.h"
 #include "../src/emst_prim.h"
@@ -17,6 +18,7 @@ using std::ofstream;
 using std::ifstream;
 using std::string;
 using std::vector;
+using std::set;
 
 
 inline void wrong_handle()
@@ -30,9 +32,9 @@ int main(int argc, char** argv)
 {
     if (argc == 1) {
         const int TEST_NUM = 5;
-        for (int i = 0; i < TEST_NUM; i++) {
+        for (int k = 0; k < TEST_NUM; k++) {
             vector<Point> points;
-            string filename = "../testcase/input" + std::to_string(i + 1) + ".txt";
+            string filename = "../testcase/input" + std::to_string(k + 1) + ".txt";
             cout << filename << endl;
             ifstream inf(filename);
             int n;
@@ -78,10 +80,17 @@ int main(int argc, char** argv)
             std::sort(r1.begin(), r1.end(), cmp);
             std::sort(r2.begin(), r2.end(), cmp);
 
-            if (r1 == r2) {
-                cout << "testcase " + std::to_string(i + 1) << " success" << endl;
+            bool flag = true;
+            for (size_t i = 0; i < r1.size(); i++) {
+                if (r1[i] != r2[i]) {
+                    flag = false;
+                }
+            }
+
+            if (flag) {
+                cout << "testcase " + std::to_string(k + 1) << " success" << endl;
             } else {
-                cout << "testcase " + std::to_string(i + 1) << " failed" << endl;
+                cout << "testcase " + std::to_string(k + 1) << " failed" << endl;
             }
 
             inf.close();
@@ -102,8 +111,16 @@ int main(int argc, char** argv)
             std::uniform_int_distribution<int> uniform(0, RANGE);
             ofstream ouf("../testcase/" + filename);
             ouf << n << endl;
+            set<Point> s_p;
             for (int i = 0; i < n; i++) {
-                int x = uniform(generator), y = uniform(generator);
+                int x, y;
+                Point p(0, 0);
+                do {
+                    x = uniform(generator);
+                    y = uniform(generator);
+                    p = Point(x, y);
+                } while(s_p.find(p) != s_p.end());
+                s_p.insert(p);
                 ouf << x << " " << y << endl;
             }
             ouf.close();

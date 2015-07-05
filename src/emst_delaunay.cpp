@@ -13,6 +13,7 @@
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
 
+
 using std::vector;
 using std::pair;
 using std::unordered_set;
@@ -21,6 +22,7 @@ using std::set;
 using std::map;
 using std::cout;
 using std::endl;
+
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> Delaunay;
@@ -71,8 +73,11 @@ vector<pair<Point, Point>> EMSTDelaunay::solve(const vector<Point>& points) cons
             u3 = point_set[p3];
         }
         graph.add_edge(u1, u2, new_points[u1].distance(new_points[u2]));
+        graph.add_edge(u2, u1, new_points[u1].distance(new_points[u2]));
         graph.add_edge(u2, u3, new_points[u2].distance(new_points[u3]));
+        graph.add_edge(u3, u2, new_points[u2].distance(new_points[u3]));
         graph.add_edge(u3, u1, new_points[u3].distance(new_points[u1]));
+        graph.add_edge(u1, u3, new_points[u3].distance(new_points[u1]));
     }
 
 

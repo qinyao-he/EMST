@@ -5,6 +5,7 @@
 #include "graph.h"
 
 #include <limits>
+#include <iostream>
 
 using std::list;
 using std::vector;
@@ -46,11 +47,12 @@ vector<Graph::Edge> Graph::mst() const {
         }
         double min = (std::numeric_limits<double>::max)();
         int minv = 0;
-        for(size_t i = 0; i < n; i++)
-            if(min > dist[i] && !in_tree[i]) {
+        for(size_t i = 0; i < n; i++) {
+            if (min > dist[i] && !in_tree[i]) {
                 min = dist[i];
                 minv = i;
             }
+        }
         edges.push_back(pre[minv]);
         t = minv;
     }
