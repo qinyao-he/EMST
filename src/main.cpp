@@ -6,9 +6,9 @@
 #include <random>
 #include <chrono>
 #include <memory>
+#include <string>
 
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 
 #include "point.h"
 #include "emst_abstract.h"
@@ -23,24 +23,36 @@ using std::endl;
 using std::ifstream;
 using std::ofstream;
 using std::vector;
-
-std::default_random_engine generator(clock());
-std::uniform_int_distribution<int> uniform(0, 600);
+using std::string;
 
 
-int main() {
+int main(int argc, char** argv) {
     vector<Point> points;
-    const int n = 5000;
-    for (int i = 0; i < n; i++) {
-        int x = uniform(generator), y = uniform(generator);
-        //cout << x << " " << y << endl;
-        points.push_back(Point(x, y));
+    int n = 500;
+    int range = 800;
+    std::mt19937 generator(clock());
+    std::uniform_int_distribution<int> uniform(0, range);
+    if (argc == 1) {
+        for (int i = 0; i < n; i++) {
+            int x = uniform(generator), y = uniform(generator);
+            points.push_back(Point(x, y));
+        }
+    } else {
+        string filename(argv[1]);
+        ifstream inf(filename);
+        inf >> n;
+        for (int i = 0; i < n; i++) {
+            int x, y;
+            inf >> x >> y;
+            if (x > range) range = x;
+            if (y > range) range = y;
+            points.push_back(Point(x, y));
+        }
     }
-
     auto algo = std::make_shared<EMSTDelaunay>();
     EMSTSolver solver(algo);
     auto result = solver.solve(points);
-    EMSTVisualizer visualizer(600, 600);
+    EMSTVisualizer visualizer(range, range);
     visualizer.show(result);
 
     return 0;
